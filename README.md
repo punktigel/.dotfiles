@@ -45,3 +45,17 @@ dotfiles config --local status.showUntrackedFiles no
 - [https://wiki.archlinux.org/title/Dotfiles](https://wiki.archlinux.org/title/Dotfiles)
 
 
+## Patching fonts
+### Package manager
+Install and search for fonts with the package manager
+
+### Install manually
+1. Create a new directory for the font family at `/usr/local/share/fonts/`
+2. Download a font family and extract the font files
+3. Copy the font files `(fontfamily.ttf)`
+4. Update the font cache
+```bash
+fc-cache -v
+```
+
+**Patched Fonts:** [Nerd Fonts](https://www.nerdfonts.com/)
