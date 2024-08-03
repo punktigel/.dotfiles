@@ -1,14 +1,8 @@
 # .bashrc
 
-# source aliases
-if [ -f ~/.bash_aliases ]; then
-    source ~/.bash_aliases
-fi
-
 parse_git(){
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
-
 
 # \W - base working directory
 # \$ - $ for user, # for root user
@@ -44,3 +38,8 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
+
+# source aliases
+if [ -f ~/.bash_aliases ]; then
+    source ~/.bash_aliases
+fi
