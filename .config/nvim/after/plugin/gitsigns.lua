@@ -35,13 +35,14 @@ require('gitsigns').setup {
     row = 0,
     col = 1
   },
-  yadm = {
-    enable = false
-  },
 }
 
 
 vim.keymap.set('n', 'gh', '<cmd>Gitsigns preview_hunk <cr>', { desc = "[G]itsigns preview [H]unk"})
 vim.keymap.set('n', 'gn', '<cmd>Gitsigns next_hunk <cr>', { desc = "[G]itsigns [N]ext hunk"})
 vim.keymap.set('n', 'gN', '<cmd>Gitsigns prev_hunk <cr>', { desc = "[G]itsigns previous hunk"})
+
+vim.keymap.set('n', 'gsh', '<cmd>Gitsigns stage_hunk <cr>', { desc = "[G]itsigns [S]tage [H]unk"})
+vim.keymap.set('n', 'guh', '<cmd>Gitsigns undo_stage_hunk <cr>', { desc = "[G]itsigns [U]ndo stage [H]unk"})
+vim.keymap.set('n', 'grh', '<cmd>Gitsigns reset_hunk <cr>', { desc = "[G]itsigns [R]eset [H]unk"})
 
