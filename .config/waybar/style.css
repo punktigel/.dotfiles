@@ -4,8 +4,14 @@
 }
 
 window#waybar {
+    /*
     background-color: rgba(43, 48, 59, 0.5);
     border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    */
+
+    background-color: rgba(43, 48, 59, 0);
+    border-bottom: 3px solid rgba(100, 114, 125, 0);
+
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
@@ -49,7 +55,8 @@ button:hover {
 
 /* you can set a style on hover for any module like this */
 #pulseaudio:hover {
-    background-color: #a37800;
+    background-color: rgba(0, 0, 0, 0);
+    border: 3px solid #32C0EE;
 }
 
 #workspaces button {
@@ -95,6 +102,9 @@ button:hover {
 #mpd {
     padding: 0 10px;
     color: #ffffff;
+    border-radius: 25px;
+
+    background-color: rgba(0, 0, 0, 0);
 }
 
 #window,
@@ -113,12 +123,13 @@ button:hover {
 }
 
 #clock {
-    background-color: #64727D;
+
+    /* background-color: #64727D; */
 }
 
 #battery {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    color: #ffffff;
 }
 
 #battery.charging, #battery.plugged {
@@ -185,7 +196,7 @@ label:focus {
 }
 
 #network {
-    background-color: #2980b9;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 #network.disconnected {
@@ -193,8 +204,10 @@ label:focus {
 }
 
 #pulseaudio {
-    background-color: #f1c40f;
-    color: #000000;
+    /* background-color: #f1c40f;*/
+    border: 2px solid #11DFAE;
+    background-color: rgba(0, 0, 0, 0);
+    color: #ffffff;
 }
 
 #pulseaudio.muted {
@@ -324,3 +337,17 @@ label:focus {
 #privacy-item.audio-out {
     background-color: #0069d4;
 }
+
+#custom-power {
+    border: 2px solid #11DFAE;
+    border-radius: 50%;
+    color: #ffffff;
+
+    font-size: 13px;
+    padding: 0px 8px;
+}
+
+#custom-power:hover {
+    border: 3px solid #32C0EE;
+}
+

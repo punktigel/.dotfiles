@@ -7,32 +7,35 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces",
-        "hyprland/submap",
+        // "hyprland/submap",
+        // "hyprland/window"
+        "pulseaudio"
     ],
     "modules-center": [
-        "hyprland/window"
+        "hyprland/workspaces"
     ],
     "modules-right": [
-        "idle_inhibitor",
-        "pulseaudio",
-        "network",
+        // "idle_inhibitor",
+        // "network",
         // "power-profiles-daemon",
         // "cpu",
         // "memory",
         // "temperature",
         // "backlight",
-        "sway/language",
-        "battery",
+        // "hyprland/language",
+        "network",
         "clock",
-        "tray"
+        "battery",
+        "custom/power"
+        // "tray"
     ],
     // Modules configuration
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "warp-on-scroll": false,
-        "format": "{name}: {icon}",
+        // "format": "{name}: {icon}",
+        "format": "{icon}",
         "format-icons": {
             // "1": "",
             // "2": "",
@@ -40,9 +43,15 @@
             // "4": "",
             // "5": "",
             "urgent": "",
+            "default": "",
             "active": "",
-            "default": ""
+            //"urgent": "",
+            // "active": "",
+            // "default": ""
         }
+    },
+    "hyprland/window": {
+        "separate-outputs": true
     },
     "keyboard-state": {
         "numlock": true,
@@ -195,8 +204,11 @@
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     },
     "custom/power": {
-        "format" : "⏻ ",
+        "format" : "⏻",
 		"tooltip": false,
+
+        "on-click": "bash ~/scripts/power_menu.sh"
+        /*
 		"menu": "on-click",
 		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
 		"menu-actions": {
@@ -205,5 +217,6 @@
 			"suspend": "systemctl suspend",
 			"hibernate": "systemctl hibernate"
 		}
+        */
     }
 }
