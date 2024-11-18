@@ -6,7 +6,7 @@ parse_git(){
 
 # \W - base working directory
 # \$ - $ for user, # for root user
-export PS1="\033[01;34m\W \033[37m\$(parse_git)\033[0;35m\$ \033[0m"
+export PS1="\[\033[01;34m\]\W \[\033[37m\]\$(parse_git)\[\033[0;35m\]\$ \[\033[0m\]"
 
 
 # setup zoxide in the shell
@@ -43,3 +43,4 @@ unset rc
 if [ -f ~/.bash_aliases ]; then
     source ~/.bash_aliases
 fi
+. "$HOME/.cargo/env"
