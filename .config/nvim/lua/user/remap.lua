@@ -41,3 +41,4 @@ vim.keymap.set('n', '<C-l>', '<C-w>>', { desc = "Resize window [l] increase - ho
 
 vim.keymap.set('n', '<leader>i', '<cmd>Inspect<CR>', { desc = "[I]nspect highlighting under the cursor"})
 
+vim.keymap.set("n", "<leader>x", "<cmd>PlenaryBustedFile %<CR>", { desc = "Plenary: Test current file with Plenary" })

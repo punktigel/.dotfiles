@@ -1,9 +1,11 @@
 local lsp = require("lsp-zero")
 
+
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-  'pylsp',
+    'pylsp',
+    'omnisharp',
 })
 
 -- Fix Undefined global 'vim'
@@ -37,6 +39,31 @@ lsp.set_preferences({
     }
 })
 
+
+lsp.configure("omnisharp", {
+    cmd = {
+        vim.fn.expand("~") .. "/.local/share/nvim/mason/bin/omnisharp"
+    },
+        -- vim.fn.stdpath('data') .. '/mason/bin/omnisharp'
+        -- os.getenv("HOME") .. "/.local/share/nvim/mason/packages/omnisharp/omnisharp"
+        -- "~/.config/nvim/after/plugin/lsp.lua" 68L, 1957B written
+    root_dir = require('lspconfig').util.root_pattern('.sln', '.csproj', '.git'),
+    on_attach = function(client, bufnr)
+        -- Keybindings für LSP
+        local opts = { buffer = bufnr, remap = false }
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
+        vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+        vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
+        vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+    end
+})
+
 lsp.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
@@ -58,3 +85,12 @@ vim.diagnostic.config({
     virtual_text = true
 })
 
+for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
+    local default_diagnostic_handler = vim.lsp.handlers[method]
+    vim.lsp.handlers[method] = function(err, result, context, config)
+        if err ~= nil and err.code == -32802 then
+            return
+        end
+        return default_diagnostic_handler(err, result, context, config)
+    end
+end

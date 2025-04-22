@@ -20,3 +20,6 @@ vim.opt.scrolloff = 8 -- 8 Lines on top and under Cursor
 vim.opt.ruler = true -- Current position in the low right corner
 vim.opt.showcmd = true -- Display unfinished cmd next to ruler
 vim.opt.showmode = true -- Display the current mode
+
+vim.cmd("set splitright") -- open a new split on the right side
+vim.cmd("set splitbelow") -- open a new split below

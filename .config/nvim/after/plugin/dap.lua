@@ -18,23 +18,38 @@ require('dapui').setup({
 )
 
 
-vim.keymap.set('n', '<leader>dt', ':lua require("dapui").toggle() <CR>', { desc = "Dap UI - toggle UI"})
+vim.keymap.set('n', '<leader>dt', ':DapToggle<CR>', { desc = "Dap UI - Toggle UI"})
 vim.keymap.set('n', '<leader>b', ':DapToggleBreakpoint<CR>', { desc = "Dap UI - DapToggle[B]reakpoint"})
 vim.keymap.set('n', '<leader>dc', ':DapContinue<CR>', { desc = "Dap UI - [D]ap [C]ontinue"})
-
-vim.api.nvim_set_keymap('n', '<leader>db', [[:lua require"osv".launch({port = 8086})<CR>]], { noremap = true })
-
-vim.api.nvim_set_keymap('n', '<leader>dr', '<cmd>DapToggleBreakpoint<CR> <cmd>DapContinue<CR> <cmd>:lua require("dapui").toggle()<CR>', { desc = "Dap UI -[D]ap [R]un breakpoint"})
 vim.api.nvim_set_keymap('n', '<leader>dk', '<cmd>DapTerminate<CR> <cmd>lua require("dapui").close()<CR>', { desc = "Dap UI - [D]ap [K]ill"})
 
+vim.keymap.set('n', '<leader>do', ':DapStepOver<CR>', { desc = "DAP UI - [D]ebug [O]ver Line"})
+vim.keymap.set('n', '<leader>di', ':DapStepInto<CR>', { desc = "DAP UI - [D]ebug [I]nto Line"})
 
-local dap = require('dap')
+
+local dap, dapui = require("dap"), require("dapui")
+dap.listeners.before.attach.dapui_config = function()
+  dapui.open()
+end
+
+dap.listeners.before.launch.dapui_config = function()
+  dapui.open()
+end
+
+dap.listeners.before.event_terminated.dapui_config = function()
+  dapui.close()
+end
+
+dap.listeners.before.event_exited.dapui_config = function()
+  dapui.close()
+end
 
 -- lua
 -- lua adapter
 dap.adapters.nlua = function(callback, config)
     callback({ type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
 end
+
 
 
 -- lua configurations
@@ -49,6 +64,7 @@ dap.configurations.lua = {
 
 
 
+
 -- c
 -- c adapter
 dap.adapters.gdb = {
@@ -59,17 +75,30 @@ dap.adapters.gdb = {
 }
 
 
--- c configurations
-dap.configurations.c = {
-    {
-        name = "Launch",
-        type = "gdb",
-        request = "launch",
-        program = '${file}',
-    },
+
+dap.adapters.codelldb = {
+    type = 'server',
+    port = "${port}",
+    executable = {
+        command = vim.fn.stdpath('data') .. '/mason/bin/codelldb', -- Mason-Path
+        args = {"--port", "${port}"},
+        -- args = {}
+    }
 }
 
-
+dap.configurations.rust = {
+    {
+        name = "Launch",
+        type = "codelldb",
+        request = "launch",
+        program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {""},
+    },
+}
 
 -- python
 -- python adapter
