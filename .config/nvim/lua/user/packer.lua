@@ -7,22 +7,14 @@ return require('packer').startup(function(use)
 
 
     -- Plugins
+    -- --------------------------------------------------
     -- Own plugins
+    -- --------------------------------------------------
 
 
+    -- --------------------------------------------------
     -- Colorschemes
-    use 'Mofiqul/adwaita.nvim'
-
-    use 'tiagovla/tokyodark.nvim'
-
-    use {
-        'olivercederborg/poimandres.nvim',
-        config = function()
-            require('poimandres').setup {
-            }
-        end
-    }
-
+    -- --------------------------------------------------
     use 'rose-pine/neovim'
 
     -- Show color - Edit colorschemes
@@ -31,18 +23,22 @@ return require('packer').startup(function(use)
 
     --------------------------------------------------
     -- lualine
+    -- --------------------------------------------------
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
 
 
-    -- Git
-    use 'tpope/vim-fugitive'
-
+    -- --------------------------------------------------
     -- Gitsigns
+    -- --------------------------------------------------
     use 'lewis6991/gitsigns.nvim'
 
+
+    -- --------------------------------------------------
+    -- Fuzzy search
+    -- --------------------------------------------------
     -- Harpoon
     use 'ThePrimeagen/harpoon'
 
@@ -53,30 +49,37 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
 
+
+    -- --------------------------------------------------
     -- Treesitter
+    -- --------------------------------------------------
     use ({'nvim-treesitter/nvim-treesitter',{run = ':TSUpdate'} })
 
 
+    -- --------------------------------------------------
     -- LSP - Language Server Protocol - Autocompletion
+    -- --------------------------------------------------
     use {
         'neovim/nvim-lspconfig',
         requires = {
+            { "williamboman/mason-lspconfig.nvim" },
             { "williamboman/mason.nvim",
                 run = function()
                     pcall(vim.cmd, 'MasonUpdate')
                 end,
             },
-            { "williamboman/mason-lspconfig.nvim" },
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},     -- Required
-            {'hrsh7th/cmp-nvim-lsp'}, -- Required
-            {'L3MON4D3/LuaSnip'},     -- Required
+            {'hrsh7th/nvim-cmp'},
+            {'hrsh7th/cmp-nvim-lsp'},
+            {'L3MON4D3/LuaSnip'},
         },
     }
 
 
+    -- --------------------------------------------------
     -- DAP - Debug Adapter Protocol (Dap)
+    -- --------------------------------------------------
     use 'mfussenegger/nvim-dap'
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
 
@@ -87,10 +90,5 @@ return require('packer').startup(function(use)
 
     -- python
     use 'mfussenegger/nvim-dap-python'
-
-
-
-    -- Vim practice
-    use 'ThePrimeagen/vim-be-good'
 
 end)
