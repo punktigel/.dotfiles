@@ -5,6 +5,13 @@
 vim.g.mapleader = ' '
 
 
+-- Change colorscheme
+vim.keymap.set("n", "<leader>cc", function()
+    ColorschemeIndex = (ColorschemeIndex % #ColorschemeList) + 1
+    vim.cmd('colorscheme ' .. ColorschemeList[ColorschemeIndex])
+end, { desc = "[C]ange [C]olorscheme"})
+
+
 -- Visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected text down"})
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected text up"})
